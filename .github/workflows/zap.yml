@@ -44,7 +44,7 @@ jobs:
                   const alert = {
                     ruleId: cur.alertRef,
                     message: { text: cur.name }, 
-                    locations: cur.instances?.map(instance => {
+                    locations: cur.instance && cur.instances.map(instance => {
                       return {
                         physicalLocation: {
                           artifactLocation: {
