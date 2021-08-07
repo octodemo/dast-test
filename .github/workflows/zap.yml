@@ -26,7 +26,7 @@ jobs:
               const rules  = object.site.reduce((acc, cur) => {
                 const alerts = cur.alerts.map(alert => {
                   return { 
-                    id: alert.alertRef,
+                    id: alert.alertRef.toString(),
                     shortDescription: { text: alert.name },
                     fullDescription: { text: alert.desc },
                     helpUri: `https://www.zaproxy.org/docs/alerts/${alert.alertRef}` 
@@ -42,23 +42,25 @@ jobs:
               const results = object.site.reduce((acc, site) => {
                  site.alerts.forEach((cur) => {
                   const alert = {
-                    ruleId: cur.alertRef,
+                    ruleId: cur.alertRef.toString(),
                     message: { text: cur.name }, 
                     locations: cur.instances && cur.instances.map(instance => {
                       return {
                         physicalLocation: {
                           artifactLocation: {
-                            uri: "README.md"
+                            uri: "./nofile"
                           },
                           region: {
                             startLine: 1
                           }
                         },
-                        physicalLocation: {
-                          artifactLocation: {
-                            uri: instance.uri
+                        logicalLocations: [
+                          {
+                            name: instance.uri,
+                            kind: instance.method,
+                            fullyQualifiedName: instance.evidence
                           }
-                        },
+                        ]
                       } 
                     })
                   }
@@ -85,7 +87,7 @@ jobs:
 
             const data = fs.readFileSync('./report_json.json', {encoding:'utf8', flag:'r'});
             const result = parse(JSON.parse(data));
-            console.log(JSON.stringify(result))
+            console.log(JSON.strinfigy(result))
             fs.writeFileSync('results.sarif', JSON.stringify(result))
       - name: Upload SARIF file
         uses: github/codeql-action/upload-sarif@v1
