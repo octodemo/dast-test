@@ -34,7 +34,9 @@ jobs:
                })
 
                 for (let rule in alerts) {
-                  acc.push(alerts[rule])
+                  if (!acc.some((r) => r.id.toString() === alerts[rule].id.toString())) {
+                    acc.push(alerts[rule])
+                  }
                 }
                 return acc;
               } , [])
