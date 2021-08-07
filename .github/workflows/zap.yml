@@ -45,12 +45,12 @@ jobs:
                  site.alerts.forEach((cur) => {
                   const alert = {
                     ruleId: cur.alertRef.toString(),
-                    message: { text: cur.name }, 
+                   message: { text: `${cur.name} - ${instance.uri} - ${instance.kind} - ${instance.evidence}` }, 
                     locations: cur.instances && cur.instances.map(instance => {
                       return {
                         physicalLocation: {
                           artifactLocation: {
-                            uri: "./nofile"
+                            uri: instance.uri.replace(/(^\w+:|^)\/\//, '').replace(/\/$/, "")
                           },
                           region: {
                             startLine: 1
@@ -60,7 +60,7 @@ jobs:
                           {
                             name: instance.uri,
                             kind: instance.method,
-                            fullyQualifiedName: instance.evidence
+                            fullyQualifiedName: instance.evidence.toString()
                           }
                         ]
                       } 
