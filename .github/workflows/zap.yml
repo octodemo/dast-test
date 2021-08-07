@@ -48,9 +48,12 @@ jobs:
                       return {
                         physicalLocation: {
                           artifactLocation: {
-                            uri: instance.uri
+                            uri: "README.md"
+                          },
+                          region: {
+                            startLine: 1
                           }
-                        }
+                        },
                       } 
                     })
                   }
