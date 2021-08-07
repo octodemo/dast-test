@@ -54,6 +54,11 @@ jobs:
                             startLine: 1
                           }
                         },
+                        physicalLocation: {
+                          artifactLocation: {
+                            uri: instance.uri
+                          }
+                        },
                       } 
                     })
                   }
