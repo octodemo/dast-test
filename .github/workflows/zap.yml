@@ -67,7 +67,7 @@ jobs:
                           {
                             name: instance.uri,
                             kind: instance.method,
-                            fullyQualifiedName: instance.evidence.toString()
+                            fullyQualifiedName: instance.evidence
                           }
                         ]
                       } 
