@@ -11,6 +11,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2.3.4
       - name: ZAP Scan
         uses: zaproxy/action-baseline@v0.4.0
         with:
@@ -38,25 +39,25 @@ jobs:
                 return acc;
               } , [])
 
-              // const results = object.site.reduce((acc, site) => {
-              //    site.alerts.forEach((cur) => {
-              //     const alert = {
-              //       ruleId: cur.alertRef,
-              //       message: { text: cur.name }, 
-              //       locations: cur.instances?.map(instance => {
-              //         return {
-              //           physicalLocation: {
-              //             artifactLocation: {
-              //               uri: instance.uri
-              //             }
-              //           }
-              //         } 
-              //       })
-              //     }
-              //     acc.push(alert);
-              //    });
-              //   return acc
-              // }, []);
+              const results = object.site.reduce((acc, site) => {
+                 site.alerts.forEach((cur) => {
+                  const alert = {
+                    ruleId: cur.alertRef,
+                    message: { text: cur.name }, 
+                    locations: cur.instances?.map(instance => {
+                      return {
+                        physicalLocation: {
+                          artifactLocation: {
+                            uri: instance.uri
+                          }
+                        }
+                      } 
+                    })
+                  }
+                  acc.push(alert);
+                 });
+                return acc
+              }, []);
 
               return {
                "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
@@ -69,14 +70,14 @@ jobs:
                        rules: rules
                     }
                   }, 
-                  results: []
+                  results: results
                 }]
               }
             }
 
             const data = fs.readFileSync('./report_json.json', {encoding:'utf8', flag:'r'});
-            
             const result = parse(JSON.parse(data));
+            console.log(result)
             fs.writeFileSync('results.sarif', JSON.stringify(result))
       - name: Upload SARIF file
         uses: github/codeql-action/upload-sarif@v1
