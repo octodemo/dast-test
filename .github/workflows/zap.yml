@@ -44,9 +44,16 @@ jobs:
               const results = object.site.reduce((acc, site) => {
                  site.alerts.forEach((cur) => {
                   const alert = {
-                    ruleId: cur.alertRef.toString(),
-                   message: { text: `${cur.name} - ${instance.uri} - ${instance.kind} - ${instance.evidence}` }, 
-                    locations: cur.instances && cur.instances.map(instance => {
+                  ruleId: cur.alertRef.toString(),
+                  // message: { text: `${cur.name} - ${instance.uri} - ${instance.kind} - ${instance.evidence}` }, 
+                  message: { text: `# ${cur.name}
+                  | Uri  | Kind | Evidence  |
+                  |--|--|--|
+                  ${cur.instances && cur.instances.map(instance => {
+                    return `| ${instance.uri} | ${instance.kind} | ${instance.evidence} |`
+                  }).join('\n')}
+                  `},
+                  locations: cur.instances && cur.instances.map(instance => {
                       return {
                         physicalLocation: {
                           artifactLocation: {
