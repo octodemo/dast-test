@@ -16,13 +16,6 @@ jobs:
         with:
           target: 'https://www.zaproxy.org'
       - run: ls
-      - name: Download a Build Artifact
-        uses: actions/download-artifact@v2.0.10
-        with:
-          # Artifact name
-          name: zap_scan
-          path: report_json.json
-      - run: ls
       - name: GitHub Script
         uses: actions/github-script@v4.0.2
         with:
