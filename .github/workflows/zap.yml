@@ -15,3 +15,73 @@ jobs:
         uses: zaproxy/action-baseline@v0.4.0
         with:
           target: 'https://www.zaproxy.org'
+      - run: ls
+      - name: Download a Build Artifact
+        uses: actions/download-artifact@v2.0.10
+        with:
+          # Artifact name
+          name: zap_scan
+          path: report_json.json
+      - run: ls
+      - name: GitHub Script
+        uses: actions/github-script@v4.0.2
+        with:
+          script: |
+            const fs = require('fs');
+            const parse = (object) => {
+              const rules  = object.site.reduce((acc, cur) => {
+                const alerts = cur.alerts.map(alert => {
+                  return { 
+                    id: alert.alertRef,
+                    shortDescription: { text: alert.name },
+                    fullDescription: { text: alert.desc },
+                    helpUri: `https://www.zaproxy.org/docs/alerts/${alert.alertRef}` 
+                  }
+               })
+
+                for (let rule in alerts) {
+                  acc.push(alerts[rule])
+                }
+                return acc;
+              } , [])
+
+              const results = object.site.reduce((acc, site) => {
+                 site.alerts.forEach((cur) => {
+                  const alert = {
+                    ruleId: cur.alertRef,
+                    message: { text: cur.name }, 
+                    locations: cur.instances?.map(instance => {
+                      return {
+                        physicalLocation: {
+                          artifactLocation: {
+                            uri: instance.uri
+                          }
+                        }
+                      } 
+                    })
+                  }
+                  acc.push(alert);
+                 });
+                return acc
+              }, []);
+
+              return {
+               "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+               "version": "2.1.0",
+                runs: [{
+                  tool: {
+                    driver: {
+                       name: "ZAProxy",
+                       informationUri: "https://www.zaproxy.org/",
+                       rules: rules
+                    }
+                  }, 
+                  results
+                }]
+              }
+            }
+            
+            const data = fs.readFileSync('./report_json.json', {encoding:'utf8', flag:'r'});
+            console.log(data)
+            console.log(parse(data))
+          
