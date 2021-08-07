@@ -66,10 +66,10 @@ jobs:
                     driver: {
                        name: "ZAProxy",
                        informationUri: "https://www.zaproxy.org/",
-                       rules: rules
+                       rules: []
                     }
                   }, 
-                  results
+                  results: []
                 }]
               }
             }
