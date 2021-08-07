@@ -87,7 +87,7 @@ jobs:
 
             const data = fs.readFileSync('./report_json.json', {encoding:'utf8', flag:'r'});
             const result = parse(JSON.parse(data));
-            console.log(JSON.strinfigy(result))
+            console.log(JSON.stringify(result))
             fs.writeFileSync('results.sarif', JSON.stringify(result))
       - name: Upload SARIF file
         uses: github/codeql-action/upload-sarif@v1
