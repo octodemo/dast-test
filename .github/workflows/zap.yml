@@ -46,10 +46,10 @@ jobs:
                   const alert = {
                   ruleId: cur.alertRef.toString(),
                   // message: { text: `${cur.name} - ${instance.uri} - ${instance.kind} - ${instance.evidence}` }, 
-                  message: { text: `# ${cur.name}
+                  message: { text: `<strong>${cur.name}</strong> <br/><br/>
                   ${cur.instances && cur.instances.map(instance => {
                     return Object.keys(instance).map(key => `${key}: ${instance[key]}`).join('<br/>')
-                  }).join('\n\r <br/><br/>')}
+                  }).join('<br/><br/>')}
                   `},
                   locations: cur.instances && cur.instances.map(instance => {
                       return {
