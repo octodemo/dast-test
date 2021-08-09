@@ -1,4 +1,4 @@
-name: zap
+name: ZAProxy scan
 
 on:
   push:
