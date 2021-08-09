@@ -48,7 +48,7 @@ jobs:
                   // message: { text: `${cur.name} - ${instance.uri} - ${instance.kind} - ${instance.evidence}` }, 
                   message: { text: `# ${cur.name}
                   ${cur.instances && cur.instances.map(instance => {
-                    return Object.keys(instance => `${instance.key}: ${instance[key]} <br/>`)
+                    return Object.keys(instance).map(instance => `${instance.key}: ${instance[key]} <br/>`)
                   }).join('\n\r <br/><br/>')}
                   `},
                   locations: cur.instances && cur.instances.map(instance => {
