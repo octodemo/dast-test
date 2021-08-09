@@ -48,7 +48,7 @@ jobs:
                   message: { text: `<strong>${cur.name}</strong> <br/><br/>
                   ${cur.instances && cur.instances.map(instance => {
                     return Object.keys(instance).map(key => `${key}: ${instance[key].replace(/</g, '&lt;').replace(/>/g, '&gt;')}`).join('<br/>')
-                  }).join('<br/><br/> ------- <br/>')}
+                  }).join('<br/><br/> ------- <br/><br/>')}
                   `},
                   locations: cur.instances && cur.instances.map(instance => {
                       return {
