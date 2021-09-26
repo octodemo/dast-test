@@ -18,17 +18,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2.3.4
-      - run:  curl http://127.0.0.1:80
-        continue-on-error: true
-      - run:  curl https://127.0.0.1:80
-        continue-on-error: true
-      - run:  curl http://localhost:80
-        continue-on-error: true
-      - run:  curl https://localhost:80
       - name: ZAP Scan
         uses: zaproxy/action-baseline@v0.4.0
         with:
-          target: 'http://localhost:8080'
+          target: 'http://127.0.0.1:80'
       - run: ls
       - name: GitHub Script
         uses: actions/github-script@v4.0.2
