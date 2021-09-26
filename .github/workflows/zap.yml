@@ -33,7 +33,7 @@ jobs:
                   return { 
                     id: alert.alertRef.toString(),
                     shortDescription: { text: alert.name },
-                    fullDescription: { text: alert.desc },
+                    fullDescription: { text: alert.desc.replace('<p>', '').replace('</p>', '') },
                     helpUri: `https://www.zaproxy.org/docs/alerts/${alert.alertRef}`,
                     defaultConfiguration: { level: severity },
                   }
