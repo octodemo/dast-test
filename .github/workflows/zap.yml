@@ -28,7 +28,7 @@ jobs:
                   let severity = "warning";
                   if (alert.riskdesc.includes("High ")) severity = "error";
                   if (alert.riskdesc.includes("Medium ")) severity = "warning";
-                  if (alert.riskdesc.includes("Informational ") severity = "note";
+                  if (alert.riskdesc.includes("Informational ")) severity = "note";
                   
                   return { 
                     id: alert.alertRef.toString(),
