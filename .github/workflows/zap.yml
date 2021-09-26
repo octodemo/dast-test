@@ -18,6 +18,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2.3.4
+      - run:  curl http://127.0.0.1:8080
+      - run:  curl https://127.0.0.1:8080
+      - run:  curl http://localhost:8080
+      - run:  curl https://localhost:8080
       - name: ZAP Scan
         uses: zaproxy/action-baseline@v0.4.0
         with:
