@@ -34,7 +34,7 @@ jobs:
                     id: alert.alertRef.toString(),
                     shortDescription: { text: alert.name },
                     fullDescription: { text: alert.desc },
-                    helpUri: `https://www.zaproxy.org/docs/alerts/${alert.alertRef}`
+                    helpUri: `https://www.zaproxy.org/docs/alerts/${alert.alertRef}`,
                     defaultConfiguration: { level: severity },
                   }
                })
