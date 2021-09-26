@@ -14,7 +14,7 @@ jobs:
       redis:
         image: yeasy/simple-web
         ports:
-          - 80
+          - 80:80
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2.3.4
