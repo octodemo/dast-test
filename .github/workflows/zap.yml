@@ -21,7 +21,7 @@ jobs:
       - name: ZAP Scan
         uses: zaproxy/action-baseline@v0.4.0
         with:
-          target: 'localhost:8080'
+          target: 'http://localhost:8080'
       - run: ls
       - name: GitHub Script
         uses: actions/github-script@v4.0.2
