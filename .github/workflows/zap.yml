@@ -107,6 +107,11 @@ jobs:
             const result = parse(JSON.parse(data));
             console.log(JSON.stringify(result))
             fs.writeFileSync('results.sarif', JSON.stringify(result))
+      - name: Upload sarif file as artifact for later inspection
+        uses: actions/upload-artifact@v2.2.4
+        with:
+          name: sarif-results
+          path: results.sarif
       - name: Upload SARIF file
         uses: github/codeql-action/upload-sarif@v1
         with:
