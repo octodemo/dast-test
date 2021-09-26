@@ -7,15 +7,21 @@ on:
     branches: [ main ]
   workflow_dispatch:
 
+
 jobs:
-  build:
+  dast:
+    services:
+      redis:
+        image: yeasy/simple-web
+        ports:
+          - 8080
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2.3.4
       - name: ZAP Scan
         uses: zaproxy/action-baseline@v0.4.0
         with:
-          target: 'https://www.zaproxy.org'
+          target: 'localhost:8080'
       - run: ls
       - name: GitHub Script
         uses: actions/github-script@v4.0.2
